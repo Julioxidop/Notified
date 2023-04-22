@@ -39,10 +39,11 @@ public class NotiScreen extends Screen {
         this.titleText.alignCenter();
         this.addDrawableChild(this.titleText);
 
-        this.messageText = new MultilineTextWidget(this.width/2 - 42, this.height/2 - 12, Text.literal(this.message), this.textRenderer);
+        this.messageText = new MultilineTextWidget(0, 0, Text.literal(this.message), this.textRenderer);
         this.messageText.setCentered(true);
-        this.messageText.setMaxWidth(84);
+        this.messageText.setMaxWidth(80);
         this.messageText.setMaxRows(5);
+        this.messageText.setPosition(this.width/2 - this.messageText.getWidth() / 2, this.height/2 - 12);
         this.addDrawableChild(this.messageText);
     }
 
