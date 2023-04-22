@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 import net.pulga22.notified.Notified;
 import net.pulga22.notified.networking.packets.ReceiveNotificationS2CPacket;
 import net.pulga22.notified.networking.packets.SendNotificationC2SPacket;
-import net.pulga22.notified.networking.packets.SendNotificationS2CPacket;
+import net.pulga22.notified.networking.packets.OpenSendNotificationScreenS2CPacket;
 
 public class ModMessages {
 
@@ -21,7 +21,7 @@ public class ModMessages {
 
     public static void registerS2CPackets(){
         ClientPlayNetworking.registerGlobalReceiver(RECEIVE_NOTIFICATION, ReceiveNotificationS2CPacket::send);
-        ClientPlayNetworking.registerGlobalReceiver(SEND_NOTIFICATION_SCREEN, SendNotificationS2CPacket::send);
+        ClientPlayNetworking.registerGlobalReceiver(SEND_NOTIFICATION_SCREEN, OpenSendNotificationScreenS2CPacket::send);
     }
 
 }
