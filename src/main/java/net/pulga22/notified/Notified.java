@@ -2,6 +2,8 @@ package net.pulga22.notified;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.pulga22.notified.command.CommandRegistries;
+import net.pulga22.notified.networking.ModMessages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +19,8 @@ public class Notified implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-
+		ModMessages.registerC2SPackets();
+		CommandRegistries.register();
 		LOGGER.info("Hello Fabric world!");
 	}
 }

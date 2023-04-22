@@ -43,6 +43,20 @@ public class CustomButtonWidget extends PressableWidget {
         this.drawMessage(matrices, minecraftClient.textRenderer, i | MathHelper.ceil(255.0f) << 24);
     }
 
+    public void drawMessage(MatrixStack matrices, TextRenderer textRenderer, int color) {
+        this.drawScrollableText(matrices, textRenderer, 2, color);
+    }
+
+    private int getTextureY() {
+        int i = 1;
+        if (!this.active) {
+            i = 0;
+        } else if (this.isHovered()) {
+            i = 2;
+        }
+        return i * 20;
+    }
+
     public static Builder builder(Text message, PressAction onPress) {
         return new Builder(message, onPress);
     }
@@ -100,20 +114,6 @@ public class CustomButtonWidget extends PressableWidget {
             buttonWidget.setTooltip(this.tooltip);
             return buttonWidget;
         }
-    }
-
-    public void drawMessage(MatrixStack matrices, TextRenderer textRenderer, int color) {
-        this.drawScrollableText(matrices, textRenderer, 2, color);
-    }
-
-    private int getTextureY() {
-        int i = 1;
-        if (!this.active) {
-            i = 0;
-        } else if (this.isHovered()) {
-            i = 2;
-        }
-        return i * 20;
     }
 
     @Override
