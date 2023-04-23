@@ -10,7 +10,9 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.text.Texts;
 import net.minecraft.util.Identifier;
 import net.pulga22.notified.Notified;
 import net.pulga22.notified.gui.widgets.CustomButtonWidget;
@@ -21,9 +23,11 @@ public class SendNotiScreen extends Screen {
     private static final Identifier TEXTURE = new Identifier(Notified.MOD_ID, "textures/gui/send_notification_window.png");
     protected TextFieldWidget notificationTitleField;
     protected TextFieldWidget notificationMessageField;
+    private PlayerEntity player;
 
     protected SendNotiScreen(Text title, PlayerEntity player) {
         super(title);
+        this.player = player;
     }
 
     @Override
@@ -38,6 +42,7 @@ public class SendNotiScreen extends Screen {
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeString(this.notificationTitleField.getText() + ";;;" + this.notificationMessageField.getText());
             ClientPlayNetworking.send(ModMessages.NOTIFICATION_SENT, buf);
+            this.player.sendMessage(Text.literal("Notification " + this.notificationTitleField.getText() + " sent.").fillStyle(Style.EMPTY.withItalic(true)));
             this.close();
         }).dimensions((int)this.width/2 - 5 + offset,this.height/2 + 12,50,20).build();
         this.addDrawableChild(buttonSend);

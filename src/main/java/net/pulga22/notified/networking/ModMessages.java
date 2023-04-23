@@ -4,9 +4,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
 import net.pulga22.notified.Notified;
-import net.pulga22.notified.networking.packets.ReceiveNotificationS2CPacket;
-import net.pulga22.notified.networking.packets.SendNotificationC2SPacket;
-import net.pulga22.notified.networking.packets.OpenSendNotificationScreenS2CPacket;
+import net.pulga22.notified.networking.packets.*;
 
 public class ModMessages {
 
@@ -14,9 +12,11 @@ public class ModMessages {
     public static final Identifier RECEIVE_NOTIFICATION = new Identifier(Notified.MOD_ID, "receive_notification");
     public static final Identifier SEND_NOTIFICATION_SCREEN = new Identifier(Notified.MOD_ID, "send_notification_screen");
     public static final Identifier NOTIFICATION_SENT = new Identifier(Notified.MOD_ID, "notification_sent");
+    public static final Identifier JOINING = new Identifier(Notified.MOD_ID, "joining");
 
     public static void registerC2SPackets(){
         ServerPlayNetworking.registerGlobalReceiver(NOTIFICATION_SENT, SendNotificationC2SPacket::send);
+        ServerPlayNetworking.registerGlobalReceiver(JOINING, JoiningC2SPacket::send);
     }
 
     public static void registerS2CPackets(){

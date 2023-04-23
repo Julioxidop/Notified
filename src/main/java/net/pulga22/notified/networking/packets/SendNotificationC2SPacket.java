@@ -6,7 +6,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
+import net.pulga22.notified.util.NotificationSaver;
 import net.pulga22.notified.util.NotificationsData;
 
 import java.util.Collection;
@@ -16,6 +16,10 @@ public class SendNotificationC2SPacket {
                             ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
         //On server
         String[] notificationParts  = buf.readString().split(";;;");
+        server.execute(()-> {
+            NotificationSaver.setTitle(notificationParts[0]);
+            NotificationSaver.setMessage(notificationParts[1]);
+        });
         Collection<ServerPlayerEntity> allPlayers = PlayerLookup.all(server);
         allPlayers.forEach(onePlayer -> {
             NotificationsData.sendNotification(onePlayer, notificationParts[0], notificationParts[1]);
