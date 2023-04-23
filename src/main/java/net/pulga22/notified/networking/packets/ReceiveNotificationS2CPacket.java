@@ -14,5 +14,6 @@ public class ReceiveNotificationS2CPacket {
         String[] notificationParts  = buf.readString().split(";;;");
         ((IEntityDataSaver) client.player).getPersistentData().putString("title", notificationParts[0]);
         ((IEntityDataSaver) client.player).getPersistentData().putString("message", notificationParts[1]);
+        ((IEntityDataSaver) client.player).getPersistentData().putBoolean("read", false);
     }
 }

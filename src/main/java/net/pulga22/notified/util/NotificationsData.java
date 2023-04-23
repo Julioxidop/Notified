@@ -13,6 +13,7 @@ public class NotificationsData {
         NbtCompound nbt = player.getPersistentData();
         nbt.putString("title", title);
         nbt.putString("message", message);
+        nbt.putBoolean("read", false);
     }
 
     //Send the packet to a player
@@ -21,5 +22,10 @@ public class NotificationsData {
         buf.writeString(title + ";;;" + message);
         addNotification((IEntityDataSaver) player, title, message);
         ServerPlayNetworking.send(player, ModMessages.RECEIVE_NOTIFICATION, buf);
+    }
+
+    public static void readNotification(ServerPlayerEntity player){
+        NbtCompound nbt = ((IEntityDataSaver)player).getPersistentData();
+        nbt.putBoolean("read", true);
     }
 }

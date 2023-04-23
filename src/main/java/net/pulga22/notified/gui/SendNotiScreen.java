@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.Texts;
 import net.minecraft.util.Identifier;
 import net.pulga22.notified.Notified;
 import net.pulga22.notified.gui.widgets.CustomButtonWidget;
