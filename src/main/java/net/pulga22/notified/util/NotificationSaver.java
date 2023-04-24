@@ -92,15 +92,12 @@ public class NotificationSaver {
             switch (index){
                 case 1 -> {
                     notification.title1 = title;
-                    System.out.println("Set t1");
                 }
                 case 2 -> {
                     notification.title2 = title;
-                    System.out.println("Set t2");
                 }
                 case 3 -> {
                     notification.title3 = title;
-                    System.out.println("Set t3");
                 }
             }
 
@@ -126,15 +123,12 @@ public class NotificationSaver {
             switch (index){
                 case 1 -> {
                     notification.message1 = message;
-                    System.out.println("Set m1");
                 }
                 case 2 -> {
                     notification.message2 = message;
-                    System.out.println("Set m2");
                 }
                 case 3 -> {
                     notification.message3 = message;
-                    System.out.println("Set m3");
                 }
             }
 

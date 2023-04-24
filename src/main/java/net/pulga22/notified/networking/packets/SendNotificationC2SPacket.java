@@ -28,7 +28,7 @@ public class SendNotificationC2SPacket {
         NotificationSaver.setTitle(3, NotificationSaver.getTitle(2));
         NotificationSaver.setMessage(3, NotificationSaver.getMessage(2));
         NotificationSaver.setTitle(2, NotificationSaver.getTitle(1));
-        NotificationSaver.setMessage(2, NotificationSaver.getTitle(1));
+        NotificationSaver.setMessage(2, NotificationSaver.getMessage(1));
         NotificationSaver.setTitle(1, map.get("title1"));
         NotificationSaver.setMessage(1, map.get("message1"));
 
