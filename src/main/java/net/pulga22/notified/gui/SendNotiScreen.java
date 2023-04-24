@@ -12,10 +12,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.pulga22.notified.Notified;
 import net.pulga22.notified.gui.widgets.CustomButtonWidget;
 import net.pulga22.notified.networking.ModMessages;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SendNotiScreen extends Screen {
 
@@ -38,10 +42,15 @@ public class SendNotiScreen extends Screen {
         this.addDrawableChild(buttonClose);
 
         CustomButtonWidget buttonSend = CustomButtonWidget.builder(Text.literal("Send"), (onPress) -> {
+            //Packet buff with the new notification so that it can change notifications file server-side
             PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeString(this.notificationTitleField.getText() + ";;;" + this.notificationMessageField.getText());
+            Map<String, String> map = new HashMap<>();
+            map.put("title1", this.notificationTitleField.getText());
+            map.put("message1", this.notificationMessageField.getText());
+            buf.writeMap(map, PacketByteBuf::writeString, PacketByteBuf::writeString);
             ClientPlayNetworking.send(ModMessages.NOTIFICATION_SENT, buf);
-            this.player.sendMessage(Text.literal("Notification " + this.notificationTitleField.getText() + " sent.").fillStyle(Style.EMPTY.withItalic(true)));
+            //Feedback
+            this.player.sendMessage(Text.literal("Notification " + this.notificationTitleField.getText() + " sent.").fillStyle(Style.EMPTY.withItalic(true).withColor(Formatting.GRAY)));
             this.close();
         }).dimensions((int)this.width/2 - 5 + offset,this.height/2 + 12,50,20).build();
         this.addDrawableChild(buttonSend);

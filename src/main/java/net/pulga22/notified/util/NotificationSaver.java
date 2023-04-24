@@ -16,7 +16,9 @@ public class NotificationSaver {
         boolean mkdirDone = file.mkdir();
         if (mkdirDone){
             Gson gson = new Gson();
-            NotificationObject notification = new NotificationObject("):", "No message");
+            NotificationObject notification = new NotificationObject("):", "No message",
+                    "):", "No message",
+                    "):", "No message");
             try (FileWriter writer = new FileWriter(filePath)) {
                 gson.toJson(notification, writer);
             } catch (IOException e) {
@@ -26,13 +28,27 @@ public class NotificationSaver {
 
     }
 
-    public static String getTitle(){
+    public static String filePath(){
+        return filePath;
+    }
+
+    public static String getTitle(int index){
         Gson gson = new Gson();
 
         try (Reader reader = new FileReader(filePath)) {
             NotificationObject notification = gson.fromJson(reader, NotificationObject.class);
 
-            return notification.title;
+            switch (index) {
+                case 1 -> {
+                    return notification.title1;
+                }
+                case 2 -> {
+                    return notification.title2;
+                }
+                case 3 -> {
+                    return notification.title3;
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,13 +57,23 @@ public class NotificationSaver {
         return null;
     }
 
-    public static String getMessage(){
+    public static String getMessage(int index){
         Gson gson = new Gson();
 
         try (Reader reader = new FileReader(filePath)) {
             NotificationObject notification = gson.fromJson(reader, NotificationObject.class);
 
-            return notification.message;
+            switch (index) {
+                case 1 -> {
+                    return notification.message1;
+                }
+                case 2 -> {
+                    return notification.message2;
+                }
+                case 3 -> {
+                    return notification.message3;
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,13 +82,28 @@ public class NotificationSaver {
         return null;
     }
 
-    public static void setTitle(String title){
+    public static void setTitle(int index, String title){
         Gson gson = new Gson();
         NotificationObject notification = null;
 
         try (Reader reader = new FileReader(filePath)) {
             notification = gson.fromJson(reader, NotificationObject.class);
-            notification.title = title;
+
+            switch (index){
+                case 1 -> {
+                    notification.title1 = title;
+                    System.out.println("Set t1");
+                }
+                case 2 -> {
+                    notification.title2 = title;
+                    System.out.println("Set t2");
+                }
+                case 3 -> {
+                    notification.title3 = title;
+                    System.out.println("Set t3");
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,13 +116,28 @@ public class NotificationSaver {
 
     }
 
-    public static void setMessage(String message){
+    public static void setMessage(int index, String message){
         Gson gson = new Gson();
         NotificationObject notification = null;
 
         try (Reader reader = new FileReader(filePath)) {
             notification = gson.fromJson(reader, NotificationObject.class);
-            notification.message = message;
+
+            switch (index){
+                case 1 -> {
+                    notification.message1 = message;
+                    System.out.println("Set m1");
+                }
+                case 2 -> {
+                    notification.message2 = message;
+                    System.out.println("Set m2");
+                }
+                case 3 -> {
+                    notification.message3 = message;
+                    System.out.println("Set m3");
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,12 +154,21 @@ public class NotificationSaver {
 }
 
 class NotificationObject{
-    public String title;
-    public String message;
+    public String title1;
+    public String message1;
+    public String title2;
+    public String message2;
+    public String title3;
+    public String message3;
 
-    public NotificationObject(String title, String message){
-        this.title = title;
-        this.message = message;
+
+    public NotificationObject(String title1, String message1,String title2, String message2,String title3, String message3){
+        this.title1 = title1;
+        this.message1 = message1;
+        this.title2 = title2;
+        this.message2 = message2;
+        this.title3 = title3;
+        this.message3 = message3;
     }
 
 }

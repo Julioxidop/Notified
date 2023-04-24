@@ -5,15 +5,19 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.pulga22.notified.command.CommandRegistries;
 import net.pulga22.notified.event.KeyInputHandler;
 import net.pulga22.notified.gui.hud.NewNotificationOverlay;
 import net.pulga22.notified.networking.ModMessages;
+import net.pulga22.notified.util.NotificationSaver;
 
 public class NotifiedClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         KeyInputHandler.register();
         ModMessages.registerS2CPackets();
+        CommandRegistries.register();
+        NotificationSaver.configFile();
 
         HudRenderCallback.EVENT.register(new NewNotificationOverlay());
 

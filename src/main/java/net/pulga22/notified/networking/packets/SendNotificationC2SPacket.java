@@ -16,23 +16,31 @@ import net.pulga22.notified.util.NotificationSaver;
 import net.pulga22.notified.util.NotificationsData;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class SendNotificationC2SPacket {
     public static void send(MinecraftServer server, ServerPlayerEntity player,
                             ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
         //On server
-        String[] notificationParts  = buf.readString().split(";;;");
-        server.execute(()-> {
-            NotificationSaver.setTitle(notificationParts[0]);
-            NotificationSaver.setMessage(notificationParts[1]);
-        });
+        //Changes notifications file server-side
+            //Pop not3 so new not can be saved
+        Map<String,String> map = buf.readMap(PacketByteBuf::readString, PacketByteBuf::readString);
+        NotificationSaver.setTitle(3, NotificationSaver.getTitle(2));
+        NotificationSaver.setMessage(3, NotificationSaver.getMessage(2));
+        NotificationSaver.setTitle(2, NotificationSaver.getTitle(1));
+        NotificationSaver.setMessage(2, NotificationSaver.getTitle(1));
+        NotificationSaver.setTitle(1, map.get("title1"));
+        NotificationSaver.setMessage(1, map.get("message1"));
+
+        //Sends a new notification to all players
         Collection<ServerPlayerEntity> allPlayers = PlayerLookup.all(server);
         allPlayers.forEach(onePlayer -> {
             onePlayer.sendMessage(Text.literal("You have received a new notification!").fillStyle(Style.EMPTY.withBold(true).withColor(Formatting.GOLD)));
             BlockPos blockPos = onePlayer.getBlockPos();
             onePlayer.getWorld().playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(),
                     SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.AMBIENT, 1f, 1f);
-            NotificationsData.sendNotification(onePlayer, notificationParts[0], notificationParts[1]);
+            //Sends packet of the new notification to all players
+            NotificationsData.sendNotification(onePlayer);
         });
     }
 }

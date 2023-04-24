@@ -10,7 +10,7 @@ import net.pulga22.notified.util.NotificationsData;
 public class ReadNotificationC2SPacket {
     public static void send(MinecraftServer server, ServerPlayerEntity player,
                             ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
-        //Server
+        //The player read the new notification
         NotificationsData.readNotification(player);
     }
 }

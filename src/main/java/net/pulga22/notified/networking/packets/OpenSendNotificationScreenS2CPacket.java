@@ -10,7 +10,8 @@ import net.pulga22.notified.gui.ScreenWrappers;
 public class OpenSendNotificationScreenS2CPacket {
     public static void send(MinecraftClient client, ClientPlayNetworkHandler handler,
                             PacketByteBuf buf, PacketSender sender){
-        //Send the packet to the player
+        //On client
+        //Open SendNotiScren to the player
         client.execute(() -> {
             ScreenWrappers.openSendNotiScreen((PlayerEntity) client.player);
         });
