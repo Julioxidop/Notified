@@ -14,7 +14,9 @@ public class Notified implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		//Register packets
 		ModMessages.registerC2SPackets();
+		//Register commands
 		CommandRegistries.register();
 		LOGGER.info("You are going to be notified! :)");
 	}

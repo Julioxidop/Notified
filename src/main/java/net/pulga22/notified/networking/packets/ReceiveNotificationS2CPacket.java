@@ -14,7 +14,7 @@ public class ReceiveNotificationS2CPacket {
                             PacketByteBuf buf, PacketSender sender){
         //On client
         assert client.player != null;
-        //Changes notifications client-sive files
+        //Changes notifications client-side file
         Map<String,String> map = buf.readMap(PacketByteBuf::readString, PacketByteBuf::readString);
         client.execute(()-> {
             NotificationSaver.setTitle(1, map.get("title1"));
