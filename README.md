@@ -17,11 +17,11 @@ To send a new notification we need to use the next command:
 ```
 /notification
 ```
-It will pop up a window with 2 fields:
+This will pop up a window with 2 fields:
 - The first one is the title of the new notification
 - The second one is the message of the new notification
 
-Then we just need to click "Send" 
+Then we just need to click "Send" button.
 
 ### Server Players
 To open the notifications window, just press N in the keyboard. This can be changed in the keybinds configuration.
