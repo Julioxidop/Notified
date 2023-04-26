@@ -3,13 +3,13 @@
 	"id": "notified",
 	"version": "${version}",
 	"name": "Notified",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Server Mod. Send fancy notifications to the players.",
 	"authors": [
-		"Me!"
+		"Pulga22"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://www.instagram.com/julioxido/",
+		"sources": "https://github.com/Julioxidop/Notified"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/notified/icon.png",
