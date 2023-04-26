@@ -1,4 +1,8 @@
 {
   "key.category.notified.notified": "Notified Keys",
-  "key.notified.open_notifications": "Open notifications"
+  "key.notified.open_notifications": "Open notifications",
+  "notified.send_notification_screen.send": "Send",
+  "notified.send_notification_screen.notification_sent": "Notification %d sent.",
+  "notified.notifications_screen.close": "Close",
+  "notified.new_notification_received": "You have received a new notification!"
 }

@@ -18,9 +18,6 @@
 		"main": [
 			"net.pulga22.notified.Notified"
 		],
-		"fabric-datagen": [
-			"net.pulga22.notified.NotifiedDataGenerator"
-		],
 		"client": [
 			"net.pulga22.notified.NotifiedClient"
 		],

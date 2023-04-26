@@ -41,7 +41,7 @@ public class SendNotiScreen extends Screen {
         }).dimensions((int)this.width/2 - 30 + offset,this.height/2 + 12,20,20).build();
         this.addDrawableChild(buttonClose);
 
-        CustomButtonWidget buttonSend = CustomButtonWidget.builder(Text.literal("Send"), (onPress) -> {
+        CustomButtonWidget buttonSend = CustomButtonWidget.builder(Text.translatable("notified.send_notification_screen.send"), (onPress) -> {
             //Packet buff with the new notification so that it can change notifications file server-side
             PacketByteBuf buf = PacketByteBufs.create();
             Map<String, String> map = new HashMap<>();
@@ -50,7 +50,7 @@ public class SendNotiScreen extends Screen {
             buf.writeMap(map, PacketByteBuf::writeString, PacketByteBuf::writeString);
             ClientPlayNetworking.send(ModMessages.NOTIFICATION_SENT, buf);
             //Feedback
-            this.player.sendMessage(Text.literal("Notification " + this.notificationTitleField.getText() + " sent.").fillStyle(Style.EMPTY.withItalic(true).withColor(Formatting.GRAY)));
+            this.player.sendMessage(Text.translatable("notified.send_notification_screen.notification_sent", this.notificationTitleField.getText()).fillStyle(Style.EMPTY.withItalic(true).withColor(Formatting.GRAY)));
             this.close();
         }).dimensions((int)this.width/2 - 5 + offset,this.height/2 + 12,50,20).build();
         this.addDrawableChild(buttonSend);

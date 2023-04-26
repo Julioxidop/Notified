@@ -20,7 +20,7 @@ import net.pulga22.notified.util.NotificationSaver;
 
 public class NotiScreen extends Screen {
 
-    private static final Identifier TEXTURE = new Identifier(Notified.MOD_ID, "textures/gui/notification_window.png");
+        private static final Identifier TEXTURE = new Identifier(Notified.MOD_ID, "textures/gui/notification_window.png");
     private TextWidget titleText;
     private MultilineTextWidget messageText;
     private CustomButtonWidget prevMsg;
@@ -55,7 +55,7 @@ public class NotiScreen extends Screen {
 
     @Override
     protected void init() {
-        CustomButtonWidget button = CustomButtonWidget.builder(Text.literal("Close"), (onPress) -> {
+        CustomButtonWidget button = CustomButtonWidget.builder(Text.translatable("notified.notifications_screen.close"), (onPress) -> {
             this.close();
         }).dimensions((int)this.width/2 - 24,(int)this.height/2+42,50,20).build();
         this.addDrawableChild(button);

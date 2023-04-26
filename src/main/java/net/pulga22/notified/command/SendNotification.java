@@ -25,7 +25,6 @@ public class SendNotification {
         ServerPlayerEntity player = source.getSource().isExecutedByPlayer() ? source.getSource().getPlayer() : null;
         if (player != null) {
             ServerPlayNetworking.send(player, ModMessages.SEND_NOTIFICATION_SCREEN, PacketByteBufs.empty());
-            //ScreenWrappers.openSendNotiScreen(player);
         } else {
             throw new SimpleCommandExceptionType(Text.literal("Player is null. Maybe this command is being called by a non player.")).create();
         }

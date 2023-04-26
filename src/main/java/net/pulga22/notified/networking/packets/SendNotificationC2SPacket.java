@@ -35,7 +35,7 @@ public class SendNotificationC2SPacket {
         //Sends a new notification to all players
         Collection<ServerPlayerEntity> allPlayers = PlayerLookup.all(server);
         allPlayers.forEach(onePlayer -> {
-            onePlayer.sendMessage(Text.literal("You have received a new notification!").fillStyle(Style.EMPTY.withBold(true).withColor(Formatting.GOLD)));
+            onePlayer.sendMessage(Text.translatable("notified.new_notification_received").fillStyle(Style.EMPTY.withBold(true).withColor(Formatting.GOLD)));
             BlockPos blockPos = onePlayer.getBlockPos();
             onePlayer.getWorld().playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(),
                     SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.AMBIENT, 1f, 1f);
