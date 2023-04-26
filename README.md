@@ -17,5 +17,5 @@ Then we just need to click "Send"
 To open the notifications window, just press N in the keyboard. This can be changed in the keybinds configuration.
 
 ## Customize and language
-We can customize the textures of the windows, for it we can download from here the template to create the resourcepack.
-In this same template comes the file en_us.json, we only need to create our own .json with the language we need.
+We can customize the textures of the windows, for it we can download from here the default files to modify them.
+In this same .zip comes the file en_us.json, we only need to create our own .json with the language we need.
