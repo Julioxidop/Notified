@@ -1,6 +1,13 @@
 # Notified
 Notifications system to implement in servers
 
+- [Notified](#notified)
+  * [Download](#download)
+  * [How to use](#how-to-use)
+    + [Server Operators](#server-operators)
+    + [Server Players](#server-players)
+  * [Customize and language](#customize-and-language)
+
 ## Download
 You can get the latest release [here](github.com/Julioxidop/Notified/releases/latest)
 
