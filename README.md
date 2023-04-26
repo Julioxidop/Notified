@@ -1,5 +1,5 @@
 # Notified
-Notifications system to implement in servers.
+Notifications system to implement in servers. FABRIC 1.19.4
 
 - [Notified](#notified)
   * [Download](#download)
