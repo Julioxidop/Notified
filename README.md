@@ -1,7 +1,7 @@
 # Notified
 Notifications system to implement in servers
 
-##Download
+## Download
 You can get the latest release [here](github.com/Julioxidop/Notified/releases/latest)
 
 ## How to use
