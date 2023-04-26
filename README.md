@@ -1,5 +1,5 @@
 # Notified
-Notifications system to implement in servers
+Notifications system to implement in servers.
 
 - [Notified](#notified)
   * [Download](#download)
@@ -9,7 +9,7 @@ Notifications system to implement in servers
   * [Customize and language](#customize-and-language)
 
 ## Download
-You can get the latest release [here](github.com/Julioxidop/Notified/releases/latest)
+You can get the latest release [here](github.com/Julioxidop/Notified/releases/latest).
 
 ## How to use
 ### Server Operators
