@@ -17,7 +17,9 @@ import net.pulga22.notified.networking.ModMessages;
 public class SendNotification {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
-        dispatcher.register(CommandManager.literal("sendnoti").executes(SendNotification::run));
+        dispatcher.register(CommandManager.literal("notification")
+                .requires((source) -> source.hasPermissionLevel(2))
+                .executes(SendNotification::run));
     }
 
     private static int run(CommandContext<ServerCommandSource> source) throws CommandSyntaxException {
