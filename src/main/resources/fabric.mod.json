@@ -36,11 +36,5 @@
 	},
 	"suggests": {
 		"another-mod": "*"
-	},
-	"custom": {
-		"cardinal-components": [
-			"notified:title",
-			"notified:message"
-		]
 	}
 }

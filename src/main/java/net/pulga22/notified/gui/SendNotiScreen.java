@@ -26,7 +26,7 @@ public class SendNotiScreen extends Screen {
     private static final Identifier TEXTURE = new Identifier(Notified.MOD_ID, "textures/gui/send_notification_window.png");
     protected TextFieldWidget notificationTitleField;
     protected TextFieldWidget notificationMessageField;
-    private PlayerEntity player;
+    private final PlayerEntity player;
 
     protected SendNotiScreen(Text title, PlayerEntity player) {
         super(title);
@@ -45,8 +45,8 @@ public class SendNotiScreen extends Screen {
             //Packet buff with the new notification so that it can change notifications file server-side
             PacketByteBuf buf = PacketByteBufs.create();
             Map<String, String> map = new HashMap<>();
-            map.put("title1", this.notificationTitleField.getText());
-            map.put("message1", this.notificationMessageField.getText());
+            map.put("title", this.notificationTitleField.getText());
+            map.put("message", this.notificationMessageField.getText());
             buf.writeMap(map, PacketByteBuf::writeString, PacketByteBuf::writeString);
             ClientPlayNetworking.send(ModMessages.NOTIFICATION_SENT, buf);
             //Feedback

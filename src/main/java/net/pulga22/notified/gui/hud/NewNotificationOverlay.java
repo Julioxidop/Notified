@@ -13,10 +13,12 @@ import net.pulga22.notified.util.IEntityDataSaver;
 
 public class NewNotificationOverlay implements HudRenderCallback {
     private static final Identifier TEXTURE = new Identifier(Notified.MOD_ID, "textures/gui/new_notification.png");
+
     @Override
     public void onHudRender(MatrixStack matrixStack, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
+
         int size = 36;
 
         int x = client.getWindow().getScaledWidth() - (size / 2);
