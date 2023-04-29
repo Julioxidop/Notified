@@ -2,157 +2,59 @@ package net.pulga22.notified.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import lombok.Data;
 import net.fabricmc.loader.api.FabricLoader;
+import net.pulga22.notified.handler.NotificationConfig;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+@Data
 public class NotificationSaver {
+    private NotificationConfig config;
+    private Gson gson;
 
-    private static final String dirPath = FabricLoader.getInstance().getConfigDir().toAbsolutePath().toString() + "\\notified";
+    private static final String dirPath = FabricLoader.getInstance().getConfigDir()
+        .toAbsolutePath().toString() + "\\notified\\notifications.json";
 
-    private static String getFilePath(){
-        return FabricLoader.getInstance().getConfigDir().toAbsolutePath() + "\\notified" + "\\notifications.json";
+    public NotificationSaver() {
+        this.gson = new GsonBuilder()
+            .disableHtmlEscaping()
+            .setPrettyPrinting()
+            .create();
+        this.config = new NotificationConfig();
+        loadConfig();
     }
 
-    public static void configFile() {
-        System.out.println();
+    public void loadConfig() {
         File file = new File(dirPath);
-        boolean mkdirDone = file.mkdir();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        if(!file.exists()) return;
 
-        List<String> defaultTitles = new ArrayList<>();
-        List<String> defaultMessages = new ArrayList<>();
-
-        NotificationObject notification = new NotificationObject(defaultTitles, defaultMessages);
-        try (FileWriter writer = new FileWriter(getFilePath())) {
-            gson.toJson(notification, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static List<String> getTitles(){
-        Gson gson = new Gson();
-
-        try (Reader reader = new FileReader(getFilePath())) {
-            NotificationObject notification = gson.fromJson(reader, NotificationObject.class);
-
-            return notification.titles;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public static List<String> getMessages(){
-        Gson gson = new Gson();
-
-        try (Reader reader = new FileReader(getFilePath())) {
-            NotificationObject notification = gson.fromJson(reader, NotificationObject.class);
-
-            return notification.messages;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public static void appendNotification(String title, String message){
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        NotificationObject notification = null;
-
-        try (Reader reader = new FileReader(getFilePath())) {
-
-            notification = gson.fromJson(reader, NotificationObject.class);
-            notification.appendNotification(title, message);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (FileWriter writer = new FileWriter(getFilePath())) {
-            gson.toJson(notification, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void lappendNotification(String title, String message){
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        NotificationObject notification = null;
-
-        try (Reader reader = new FileReader(getFilePath())) {
-
-            notification = gson.fromJson(reader, NotificationObject.class);
-            notification.lappendNotification(title, message);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (FileWriter writer = new FileWriter(getFilePath())) {
-            gson.toJson(notification, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void clear(){
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        NotificationObject notification = null;
-
-        try (Reader reader = new FileReader(getFilePath())) {
-
-            notification = gson.fromJson(reader, NotificationObject.class);
-            notification.clear();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (FileWriter writer = new FileWriter(getFilePath())) {
-            gson.toJson(notification, writer);
+        try {
+            BufferedReader reader = Files.newBufferedReader(Paths.get(file.getPath()));
+            NotificationConfig object = gson.fromJson(reader, NotificationConfig.class);
+            this.setConfig(object);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void saveConfig() {
+        File file = new File(dirPath);
 
-}
+        try {
+            if(!file.exists()) {
+                file.mkdirs();
+                file.createNewFile();
+            }
 
-class NotificationObject{
-    public List<String> titles;
-    public List<String> messages;
-
-    public NotificationObject(List<String> titles, List<String> messages){
-        this.titles = titles;
-        this.messages = messages;
+            FileWriter fileWriter = new FileWriter(file);
+            gson.toJson(this.getConfig(), fileWriter);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-    public void appendNotification(String title, String message) {
-        this.titles.add(0, title);
-        this.messages.add(0, message);
-    }
-
-    public void lappendNotification(String title, String message){
-        this.titles.add(title);
-        this.messages.add(message);
-    }
-
-    public void clear(){
-        this.titles.clear();
-        this.messages.clear();
-    }
-
 }

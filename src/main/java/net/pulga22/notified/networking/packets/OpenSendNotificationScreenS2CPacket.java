@@ -15,6 +15,5 @@ public class OpenSendNotificationScreenS2CPacket {
         client.execute(() -> {
             ScreenWrappers.openSendNotiScreen((PlayerEntity) client.player);
         });
-
     }
 }
