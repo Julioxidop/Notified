@@ -27,5 +27,5 @@ Then we just need to click "Send" button.
 To open the notifications window, just press N in the keyboard. This can be changed in the keybinds configuration.
 
 ## Customize and language
-We can customize the textures of the windows, for it we can download from [here](https://github.com/Julioxidop/Notified/releases/tag/NotifiedRP) the default files to modify them.
+We can customize the textures of the windows, for it we can download from [here](https://github.com/Julioxidop/Notified/releases/tag/NotifiedRP-1.1) the default files to modify them.
 In this same .zip comes the file en_us.json, we only need to create our own .json with the language we need.
