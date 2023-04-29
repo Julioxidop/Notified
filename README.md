@@ -9,7 +9,7 @@ Notifications system to implement in servers. FABRIC 1.19.4
   * [Customize and language](#customize-and-language)
 
 ## Download
-You can get the latest release [here](/releases/latest).
+You can get the latest release [here](https://github.com/Julioxidop/Notified/releases/tag/1.1-1.19.4).
 
 ## How to use
 ### Server Operators
