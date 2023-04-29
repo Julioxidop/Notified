@@ -2,7 +2,6 @@ package net.pulga22.notified.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -16,10 +15,9 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.pulga22.notified.Notified;
 import net.pulga22.notified.gui.widgets.CustomButtonWidget;
+import net.pulga22.notified.handler.Notification;
 import net.pulga22.notified.networking.ModMessages;
-
-import java.util.HashMap;
-import java.util.Map;
+import net.pulga22.notified.util.ReceiveNotificationUtil;
 
 public class SendNotiScreen extends Screen {
 
@@ -41,18 +39,26 @@ public class SendNotiScreen extends Screen {
         }).dimensions((int)this.width/2 - 30 + offset,this.height/2 + 12,20,20).build();
         this.addDrawableChild(buttonClose);
 
-        CustomButtonWidget buttonSend = CustomButtonWidget.builder(Text.translatable("notified.send_notification_screen.send"), (onPress) -> {
-            //Packet buff with the new notification so that it can change notifications file server-side
-            PacketByteBuf buf = PacketByteBufs.create();
-            Map<String, String> map = new HashMap<>();
-            map.put("title", this.notificationTitleField.getText());
-            map.put("message", this.notificationMessageField.getText());
-            buf.writeMap(map, PacketByteBuf::writeString, PacketByteBuf::writeString);
-            ClientPlayNetworking.send(ModMessages.NOTIFICATION_SENT, buf);
-            //Feedback
-            this.player.sendMessage(Text.translatable("notified.send_notification_screen.notification_sent", this.notificationTitleField.getText()).fillStyle(Style.EMPTY.withItalic(true).withColor(Formatting.GRAY)));
-            this.close();
-        }).dimensions((int)this.width/2 - 5 + offset,this.height/2 + 12,50,20).build();
+        CustomButtonWidget buttonSend = CustomButtonWidget.builder
+            (Text.translatable("notified.send_notification_screen.send"), (onPress) -> {
+                //Packet buff with the new notification so that it can change notifications file server-side
+                Notification notification = new Notification(
+                    this.notificationTitleField.getText(),
+                    this.notificationMessageField.getText()
+                );
+
+                PacketByteBuf buf = ReceiveNotificationUtil.createNotificationBuffer(notification);
+                ClientPlayNetworking.send(ModMessages.NOTIFICATION_SENT, buf);
+
+                //Feedback
+                this.player.sendMessage(Text.translatable
+                    ("notified.send_notification_screen.notification_sent",
+                    this.notificationTitleField.getText()).fillStyle
+                    (Style.EMPTY.withColor(Formatting.GRAY))
+                );
+
+                this.close();
+            }).dimensions((int)this.width/2 - 5 + offset,this.height/2 + 12,50,20).build();
         this.addDrawableChild(buttonSend);
 
         this.notificationTitleField = new TextFieldWidget(this.textRenderer, this.width / 2 - 50, this.height/2 - 32, 100, 15, Text.literal("Title"));
