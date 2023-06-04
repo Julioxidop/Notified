@@ -30,6 +30,7 @@ public class NotiScreen extends Screen {
     private CustomButtonWidget prevMsg;
     private CustomButtonWidget nxtMsg;
     private int currentIndex;
+    private int currentMirroredIndex;
 
     private final List<Notification> notifications;
     private final int newReadColor;
@@ -50,6 +51,7 @@ public class NotiScreen extends Screen {
         this.newReadColor = saver.getConfig().parseColor();
 
         this.currentIndex = 0;
+        this.currentMirroredIndex = this.notifications.size() - 1   ;
     }
 
     @Override
@@ -102,7 +104,7 @@ public class NotiScreen extends Screen {
         //Since always we appear in the first message, disable previous message button
         this.prevMsg.active = false;
 
-        //If we only 1 message or none, disable next message button
+        //If we only have 1 message or none, disable next message button
         if (this.notifications.size() <= 1) this.nxtMsg.active = false;
 
         //Handle if we don't have any messages
@@ -113,7 +115,7 @@ public class NotiScreen extends Screen {
             centerMessageText();
         } else {
             //If we have messages, initialize the message and text widgets
-            changeTextWidgetsMessages(currentIndex);
+            changeTextWidgetsMessages(currentMirroredIndex);
             setCurrentIndexText();
         }
     }
@@ -133,8 +135,8 @@ public class NotiScreen extends Screen {
         //Move to left (next)
         if (side.equals("left") && this.currentIndex > 0){
             this.nxtMsg.active = true;
-            this.currentIndex--;
-            changeTextWidgetsMessages(this.currentIndex);
+            this.currentIndex--; this.currentMirroredIndex++;
+            changeTextWidgetsMessages(this.currentMirroredIndex);
             if (this.currentIndex == 0){
                 this.prevMsg.active = false;
                 if (this.newRead){
@@ -145,8 +147,8 @@ public class NotiScreen extends Screen {
         //Move to right (previous)
         } else if (side.equals("right") && this.currentIndex < this.notifications.size() - 1) {
             this.prevMsg.active = true;
-            this.currentIndex++;
-            changeTextWidgetsMessages(this.currentIndex);
+            this.currentIndex++; this.currentMirroredIndex--;
+            changeTextWidgetsMessages(this.currentMirroredIndex);
             this.titleText.setTextColor(0xffffff);
             this.messageText.setTextColor(0xffffff);
 

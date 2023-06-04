@@ -17,7 +17,7 @@ public class KeyInputHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (openNotifications.wasPressed() && client.player != null){
                 //Open NotiScreen
-                ScreenWrappers.openNotiScreen(client.world, client.player);
+                ScreenWrappers.openNotiScreen(client.player);
             }
         });
     }

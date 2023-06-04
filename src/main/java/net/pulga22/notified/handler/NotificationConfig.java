@@ -11,7 +11,7 @@ public class NotificationConfig {
 
     public NotificationConfig() {
         notifications = new ArrayList<>();
-        unreadNotificationColor = "#ffffff";
+        unreadNotificationColor = "#ffbf40";
     }
 
     public int parseColor() {

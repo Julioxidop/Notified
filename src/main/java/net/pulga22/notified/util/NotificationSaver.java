@@ -16,8 +16,11 @@ public class NotificationSaver {
     private NotificationConfig config;
     private Gson gson;
 
-    private static final String dirPath = FabricLoader.getInstance().getConfigDir()
-        .toAbsolutePath().toString() + "\\notified\\notifications.json";
+    private static final String folderPath = FabricLoader.getInstance().getConfigDir()
+        .toAbsolutePath().toString() + "\\notified";
+
+    private static final String filePath = FabricLoader.getInstance().getConfigDir()
+            .toAbsolutePath().toString() + "\\notified\\notifications-2.json";
 
     public NotificationSaver() {
         this.gson = new GsonBuilder()
@@ -29,8 +32,20 @@ public class NotificationSaver {
     }
 
     public void loadConfig() {
-        File file = new File(dirPath);
-        if(!file.exists()) return;
+        File folder = new File(folderPath);
+        System.out.println(folderPath);
+        if (!folder.exists()){
+            folder.mkdir();
+        }
+        File file = new File(filePath);
+        if (!file.exists() && this.getConfig() != null){
+            try {
+                file.createNewFile();
+                this.saveConfig();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
 
         try {
             BufferedReader reader = Files.newBufferedReader(Paths.get(file.getPath()));
@@ -42,14 +57,8 @@ public class NotificationSaver {
     }
 
     public void saveConfig() {
-        File file = new File(dirPath);
-
+        File file = new File(filePath);
         try {
-            if(!file.exists()) {
-                file.mkdirs();
-                file.createNewFile();
-            }
-
             FileWriter fileWriter = new FileWriter(file);
             gson.toJson(this.getConfig(), fileWriter);
             fileWriter.close();

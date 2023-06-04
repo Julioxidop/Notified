@@ -15,6 +15,7 @@ public class ModMessages {
     public static final Identifier JOINING = new Identifier(Notified.MOD_ID, "joining");
     public static final Identifier JOINING_SYNC = new Identifier(Notified.MOD_ID, "joining_sync");
     public static final Identifier READ_NOTIFICATION = new Identifier(Notified.MOD_ID, "read_notification");
+    public static final Identifier CLEAR_NOTIFICATIONS = new Identifier(Notified.MOD_ID, "clear_notifications");
 
     public static void registerC2SPackets(){
         //Packet to send a notification
@@ -32,6 +33,8 @@ public class ModMessages {
         ClientPlayNetworking.registerGlobalReceiver(SEND_NOTIFICATION_SCREEN, OpenSendNotificationScreenS2CPacket::send);
         //Sync data from server to client
         ClientPlayNetworking.registerGlobalReceiver(JOINING_SYNC, JoiningSyncS2CPacket::send);
+        //Clear all notifications
+        ClientPlayNetworking.registerGlobalReceiver(CLEAR_NOTIFICATIONS, ClearNotificationsS2CPacket::send);
     }
 
 }

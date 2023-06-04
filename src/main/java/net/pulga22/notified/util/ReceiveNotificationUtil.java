@@ -13,7 +13,7 @@ import net.pulga22.notified.Notified;
 import net.pulga22.notified.handler.Notification;
 
 public class ReceiveNotificationUtil {
-    
+
     @Environment(EnvType.CLIENT)
     public static void handleNotification(MinecraftClient client, PacketByteBuf buf, boolean clear) {
         try {
@@ -29,13 +29,23 @@ public class ReceiveNotificationUtil {
                 notificationList.addAll(notifications);
                 config.saveConfig();
 
-                // Check if has new notifications
+                // Check if it has new notifications
                 if(lastNotificationSize != notificationList.size())
                     ((IEntityDataSaver) client.player).getPersistentData().putBoolean("read", false);
             });
         } catch(Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void clearNotifications(MinecraftClient client){
+        client.execute(() -> {
+            NotificationSaver config = Notified.getInstance().getConfig();
+            List<Notification> notificationList = config.getConfig().getNotifications();
+            notificationList.clear();
+            config.saveConfig();
+        });
     }
 
     public static List<Notification> parseNotificationPacket(PacketByteBuf buf) {

@@ -9,10 +9,12 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RotationAxis;
 import net.pulga22.notified.Notified;
 import net.pulga22.notified.NotifiedPhysicalServer;
 import net.pulga22.notified.handler.Notification;
@@ -31,6 +33,7 @@ public class SendNotificationC2SPacket {
         //Changes notifications file server-side
         //Pop not3 so new not can be saved
         List<Notification> notifications = ReceiveNotificationUtil.parseNotificationPacket(buf);
+        PacketByteBuf newBuf = ReceiveNotificationUtil.createNotificationBuffer(notifications);
 
         //Sends a new notification to all players
         if (NotifiedPhysicalServer.getInstance() != null){
@@ -43,16 +46,13 @@ public class SendNotificationC2SPacket {
 
                 onePlayer.sendMessage(Text.translatable("notified.new_notification_received")
                     .fillStyle(Style.EMPTY.withColor(saver.getConfig().parseColor())));
-                BlockPos blockPos = onePlayer.getBlockPos();
 
-                // TODO: Change this because if there are one hundred players it will be sound one hundred times
-                onePlayer.getWorld().playSound(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(),
-                    SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.AMBIENT, 1f, 1f);
+                onePlayer.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.AMBIENT, 1f, 1f);
 
                 //Sends packet of the new notification to all players
                 NbtCompound nbt = ((IEntityDataSaver) onePlayer).getPersistentData();
                     nbt.putBoolean("read", false);
-                ServerPlayNetworking.send(onePlayer, ModMessages.RECEIVE_NOTIFICATION, buf);
+                ServerPlayNetworking.send(onePlayer, ModMessages.RECEIVE_NOTIFICATION, newBuf);
             });
         }
 

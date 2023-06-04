@@ -6,7 +6,7 @@ import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
 public class ScreenWrappers {
-    public static void openNotiScreen(World world, PlayerEntity player){
+    public static void openNotiScreen(PlayerEntity player){
         MinecraftClient.getInstance().setScreen(new NotiScreen(Text.literal("notiScreen"), player));
     }
 
